@@ -51,9 +51,26 @@ const STANDALONE_TWEAKS = {
   hero: "fullbleed",
 };
 
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <PadelistaPage mode="desktop" tweaks={STANDALONE_TWEAKS}/>
-);
+const PD_MOBILE_BREAKPOINT = 820;
+
+function PadelistaApp() {
+  const getMode = () => (window.innerWidth <= PD_MOBILE_BREAKPOINT ? "mobile" : "desktop");
+  const [mode, setMode] = React.useState(getMode);
+
+  React.useEffect(() => {
+    const onResize = () => setMode(getMode());
+    window.addEventListener("resize", onResize);
+    window.addEventListener("orientationchange", onResize);
+    return () => {
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("orientationchange", onResize);
+    };
+  }, []);
+
+  return <PadelistaPage mode={mode} tweaks={STANDALONE_TWEAKS}/>;
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<PadelistaApp/>);
 </script>
 </body>
 </html>
