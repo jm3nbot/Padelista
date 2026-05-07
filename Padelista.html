@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Padelista — Padel Courts, Coaching & Corporate Events in Abu Dhabi</title>
+
+<!-- SEO -->
+<meta name="description" content="Padelista runs three premium padel venues in Abu Dhabi — Sheikha Fatima Park, Makers District, and Rawdhat. Book courts on Playtomic, join coaching and tournaments, or host a corporate event."/>
+<meta name="keywords" content="padel Abu Dhabi, padel courts Abu Dhabi, padel coaching Abu Dhabi, corporate padel events Abu Dhabi, padel tournaments Abu Dhabi, padel Reem Island, padel Sheikha Fatima Park"/>
+
+<!-- Fonts (Archivo: bold geometric sans, matches the logo wordmark) -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+
+<link rel="stylesheet" href="styles.css?v=20260507d"/>
+
+<style>
+  /* Page chrome (canvas background) */
+  html, body {
+    margin: 0; padding: 0;
+    background: #f0eee9;
+    font-family: 'Archivo', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Inside-artboard scroll behavior: artboards have a fixed visual size,
+     but the homepage is much taller than that — so each artboard is a
+     vertically-scrolling viewport showing the page. */
+  .pd-artboard-scroll {
+    width: 100%; height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+  .pd-artboard-scroll::-webkit-scrollbar { width: 8px; }
+  .pd-artboard-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.18); border-radius: 4px; }
+
+  /* Phone-frame chrome around the mobile artboard */
+  .pd-phone {
+    position: relative;
+    border-radius: 44px;
+    background: #1a1a1a;
+    padding: 10px;
+    box-shadow:
+      0 0 0 1px rgba(0,0,0,0.4),
+      0 30px 60px rgba(0,0,0,0.18);
+  }
+  .pd-phone__notch {
+    position: absolute; top: 18px; left: 50%; transform: translateX(-50%);
+    width: 110px; height: 32px; border-radius: 999px;
+    background: #000; z-index: 30;
+  }
+  .pd-phone__screen {
+    position: relative;
+    border-radius: 36px;
+    overflow: hidden;
+    background: #0e0f10;
+    width: 100%; height: 100%;
+  }
+</style>
+
+</head>
+<body>
+
+<div id="root"></div>
+
+<!-- React + Babel -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<!-- Components -->
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="padelista-icons.jsx?v=20260507d"></script>
+<script type="text/babel" src="padelista-home.jsx?v=20260507d"></script>
+<script type="text/babel" src="padelista-sections.jsx?v=20260507d"></script>
+<script type="text/babel" src="padelista-page.jsx?v=20260507d"></script>
+
+<script type="text/babel">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "palette": [
+    "#070d1c",
+    "#0e1730",
+    "#3ee07a",
+    "#f4f5f3"
+  ],
+  "font": "'Archivo', 'Inter', system-ui, sans-serif",
+  "hero": "fullbleed"
+}/*EDITMODE-END*/;
+
+const FONT_OPTIONS = {
+  "Archivo (default)": "'Archivo', 'Inter', system-ui, sans-serif",
+  "Space Grotesk":     "'Space Grotesk', 'Inter', system-ui, sans-serif",
+  "Inter":             "'Inter', system-ui, sans-serif",
+  "Helvetica Neue":    "'Helvetica Neue', Helvetica, Arial, sans-serif",
+};
+const PALETTE_OPTIONS = [
+  ["#070d1c", "#0e1730", "#3ee07a", "#f4f5f3"], // 1 · deep navy + padel green (default)
+  ["#08231a", "#0d3327", "#7af5b6", "#f1efe7"], // 2 · deep forest + mint
+  ["#0e0f10", "#16181a", "#3ee07a", "#f4f5f3"], // 3 · charcoal + green
+  ["#1c1814", "#2a2218", "#e8c47a", "#f4f1ec"], // 4 · espresso + sand
+];
+
+function App() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+  // Derive css color tokens from the palette tweak
+  const tweaks = {
+    bg:     t.palette[0],
+    bgAlt:  t.palette[1],
+    accent: t.palette[2],
+    fg:     t.palette[3],
+    font:   t.font,
+    hero:   t.hero,
+  };
+
+  const desktopW = 1280;
+  const desktopH = 2400; // viewport scrolls inside the artboard
+  const phoneW   = 390;
+  const phoneH   = 844;
+
+  return (
+    <DesignCanvas>
+      <DCSection id="homepage" title="Padelista — Homepage" subtitle="Charcoal + padel green · Bold geometric sans · Desktop and mobile">
+        <DCArtboard id="desktop" label="Desktop · 1280" width={desktopW} height={desktopH}>
+          <div className="pd-artboard-scroll">
+            <PadelistaPage mode="desktop" tweaks={tweaks}/>
+          </div>
+        </DCArtboard>
+
+        <DCArtboard id="mobile" label="Mobile · iPhone 14 Pro" width={phoneW + 24} height={phoneH + 24}>
+          <div className="pd-phone" style={{ width: phoneW + 24, height: phoneH + 24 }}>
+            <div className="pd-phone__notch"/>
+            <div className="pd-phone__screen">
+              <div className="pd-artboard-scroll">
+                <PadelistaPage mode="mobile" tweaks={tweaks}/>
+              </div>
+            </div>
+          </div>
+        </DCArtboard>
+      </DCSection>
+
+      <TweaksPanel title="Tweaks">
+        <TweakSection label="Palette"/>
+        <TweakColor
+          label="Color system"
+          value={t.palette}
+          options={PALETTE_OPTIONS}
+          onChange={(v) => setTweak('palette', v)}
+        />
+        <TweakSection label="Typography"/>
+        <TweakSelect
+          label="Display font"
+          value={Object.keys(FONT_OPTIONS).find(k => FONT_OPTIONS[k] === t.font) || "Archivo (default)"}
+          options={Object.keys(FONT_OPTIONS)}
+          onChange={(v) => setTweak('font', FONT_OPTIONS[v])}
+        />
+        <TweakSection label="Hero variant"/>
+        <TweakRadio
+          label="Layout"
+          value={t.hero}
+          options={["split", "fullbleed", "asymmetric"]}
+          onChange={(v) => setTweak('hero', v)}
+        />
+      </TweaksPanel>
+    </DesignCanvas>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+
+</body>
+</html>

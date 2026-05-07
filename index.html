@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Padelista — Padel Courts, Coaching & Corporate Events in Abu Dhabi</title>
+
+<meta name="description" content="Padelista runs three premium padel venues in Abu Dhabi — Sheikha Fatima Park, Makers District, and Rawdhat. Book courts on Playtomic, join coaching and tournaments, or host a corporate event."/>
+<meta name="keywords" content="padel Abu Dhabi, padel courts Abu Dhabi, padel coaching Abu Dhabi, corporate padel events Abu Dhabi, padel tournaments Abu Dhabi, padel Reem Island, padel Sheikha Fatima Park"/>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+
+<link rel="stylesheet" href="styles.css?v=20260507k"/>
+
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    background: #070d1c;
+    font-family: 'Archivo', 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  #root {
+    min-height: 100vh;
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="padelista-icons.jsx?v=20260507k"></script>
+<script type="text/babel" src="padelista-home.jsx?v=20260507k"></script>
+<script type="text/babel" src="padelista-sections.jsx?v=20260507k"></script>
+<script type="text/babel" src="padelista-page.jsx?v=20260507k"></script>
+
+<script type="text/babel">
+const STANDALONE_TWEAKS = {
+  bg: "#070d1c",
+  bgAlt: "#0e1730",
+  accent: "#3ee07a",
+  fg: "#f4f5f3",
+  font: "'Archivo', 'Inter', system-ui, sans-serif",
+  hero: "fullbleed",
+};
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <PadelistaPage mode="desktop" tweaks={STANDALONE_TWEAKS}/>
+);
+</script>
+</body>
+</html>
