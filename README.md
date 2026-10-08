@@ -2,6 +2,27 @@
 
 A responsive showcase website for Padelista's padel courts, coaching, and corporate events in Abu Dhabi. The experience combines venue information, court imagery, video, and booking links.
 
+## Preview
+
+![Padelista landing page with court imagery and booking links](docs/images/padelista-home.png)
+
+<details>
+<summary>More previews: venues, coaching, and mobile</summary>
+
+### Venues
+
+![Padelista venue cards for three Abu Dhabi locations](docs/images/padelista-locations.png)
+
+### Coaching
+
+![Padelista coaching and academy options](docs/images/padelista-coaching.png)
+
+### Mobile
+
+<img src="docs/images/padelista-mobile.png" alt="Padelista mobile landing page" width="320" />
+
+</details>
+
 ## Features
 
 - Venue sections and maps for the featured Abu Dhabi locations.
